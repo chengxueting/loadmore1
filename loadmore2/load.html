@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	.load1{
+		width: 350px;
+		height:  20px;
+		border: 1px solid red;
+	}
+	.load1:hover{
+		background: green;
+	}
+	.loadmore{
+		width: 50px;
+		padding: 8px;
+		border: 1px solid black;
+		font-size: 10px;
+		margin-top: 20px;
+	}
+</style>
+<body>
+	<div class='load'>
+		<div class='load1'>内容1</div>
+		<div class='load1'>内容2</div>
+	</div>
+	<div class='loadmore'>加载更多</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head></script>
+	<script>
+		var index=1,
+		     len=3;
+		$('.loadmore').on('click',function(){
+			$.get('/hello',{index:index,len:len}).done(function(ret){
+				if(ret.status==0){
+					index++;
+					appendHtml(ret)
+				}else{
+					alert('获取新闻出错')
+				}
+			})
+		})
+		function appendHtml(content){
+			var html='';
+			html+= '<div class="load1">'+'内容'+content.arr[0]+'</div>'
+			html+= '<div class="load1">'+'内容'+content.arr[1]+'</div>'
+			html+= '<div class="load1">'+'内容'+content.arr[2]+'</div>'
+			$('.load').append(html)
+		}
+	
+	</script>
+</body>
+</html>
